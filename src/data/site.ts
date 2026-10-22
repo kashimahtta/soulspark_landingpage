@@ -1,4 +1,4 @@
-export const WHATSAPP_NUMBER = "919999884938";
+export const WHATSAPP_NUMBER = "919205070058";
 export const EMAIL = "satyadeep.mahtta@gmail.com";
 export const INSTAGRAM_HANDLE = "soul_spark.16";
 export const whatsappLink = (message?: string) =>
