@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { ExternalLink, Instagram, Mail, MessageCircle, Sparkles, X } from "lucide-react";
+import {
+  ExternalLink,
+  Instagram,
+  Mail,
+  MessageCircle,
+  PenLine,
+  Sparkles,
+  X,
+} from "lucide-react";
 import {
   EMAIL,
   INSTAGRAM_HANDLE,
@@ -29,8 +37,45 @@ export function OneScreen() {
   const { text, expired } = useCountdown(true);
 
   return (
-    <div className="flex h-[100dvh] flex-col overflow-hidden bg-gradient-to-b from-lavender to-cream px-4 py-4 text-plum sm:px-8">
-      <header className="flex items-center justify-between">
+    <div
+      className="relative flex h-[100dvh] flex-col overflow-hidden bg-gradient-to-b from-lavender to-cream px-4 py-4 text-plum sm:px-8"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle at 1px 1px, rgba(154,107,22,0.18) 1.2px, transparent 0)",
+        backgroundSize: "22px 22px",
+      }}
+    >
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 200 200"
+        className="pointer-events-none absolute -left-10 -top-10 h-56 w-56 text-gold/25"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      >
+        <path d="M10 120c30-80 70 40 100-20s50-50 80-10" />
+        <path d="M0 150c40-60 80 30 120-10s50-40 80-5" />
+        <path d="M20 180c30-40 70 20 100-5s40-30 70-5" />
+      </svg>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 200 200"
+        className="pointer-events-none absolute -bottom-12 -right-10 h-64 w-64 rotate-180 text-gold/25"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      >
+        <path d="M10 120c30-80 70 40 100-20s50-50 80-10" />
+        <path d="M0 150c40-60 80 30 120-10s50-40 80-5" />
+        <path d="M20 180c30-40 70 20 100-5s40-30 70-5" />
+      </svg>
+      <PenLine
+        aria-hidden="true"
+        className="pointer-events-none absolute right-8 top-24 hidden h-24 w-24 rotate-12 text-gold/20 md:block"
+      />
+      <header className="relative flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
             src="/soulspark%20logo.jpeg"
@@ -52,7 +97,7 @@ export function OneScreen() {
         </button>
       </header>
 
-      <main className="mx-auto grid min-h-0 w-full max-w-5xl flex-1 content-center gap-4 py-3 md:grid-cols-2 md:gap-8">
+      <main className="relative mx-auto grid min-h-0 w-full max-w-5xl flex-1 content-center gap-4 py-3 md:grid-cols-2 md:gap-8">
         <section>
           <h2 className="font-display text-2xl sm:text-3xl">Why Soul Spark?</h2>
           <ul className="mt-3 grid gap-2">
@@ -71,8 +116,16 @@ export function OneScreen() {
           <h2 className="font-display text-2xl sm:text-3xl">What we offer?</h2>
           <p className="mt-1 text-sm font-semibold text-gold">
             15-Day Handwriting Improvement Program ·{" "}
-            <span className="font-normal text-plum/50 line-through">₹6000</span>{" "}
-            ₹1999 only
+            {expired ? (
+              "₹6000"
+            ) : (
+              <>
+                <span className="font-normal text-plum/50 line-through">
+                  ₹6000
+                </span>{" "}
+                ₹1999 only
+              </>
+            )}
           </p>
           <ul className="mt-3 grid gap-2">
             {services.map((s) => (
@@ -81,7 +134,7 @@ export function OneScreen() {
                 className="rounded-lg border border-gold/25 bg-cream/70 px-3 py-1.5 text-sm"
               >
                 <span className="font-semibold">{s.title}</span>
-                <span className="hidden text-plum/70 sm:inline">
+                <span className="hidden text-plum/70 lg:inline">
                   {" "}
                   – {s.description}
                 </span>
@@ -91,7 +144,31 @@ export function OneScreen() {
         </section>
       </main>
 
-      <footer className="flex flex-wrap items-center justify-center gap-2 text-sm sm:gap-4">
+      <div className="relative mx-auto mb-3 hidden w-full max-w-5xl grid-cols-2 gap-4 md:grid [@media(max-height:700px)]:hidden">
+        {[
+          { label: "Before", text: "mi hanwritng is mesy", cls: "-rotate-1 text-plum/60 tracking-tighter" },
+          { label: "After", text: "My handwriting is neat", cls: "rotate-0 text-plum" },
+        ].map((s) => (
+          <div
+            key={s.label}
+            className="relative overflow-hidden rounded-lg border border-gold/30 bg-white/80 px-4 py-2 shadow-sm"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(transparent, transparent 31px, rgba(122,162,214,0.45) 32px)",
+            }}
+          >
+            <span className="absolute left-0 top-0 h-full w-6 border-r border-rose-300/60" />
+            <p className="pl-5 text-xs font-semibold uppercase tracking-wide text-gold">
+              {s.label}
+            </p>
+            <p className={`pl-5 font-accent text-3xl leading-[32px] ${s.cls}`}>
+              {s.text}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <footer className="relative flex flex-wrap items-center justify-center gap-2 text-sm sm:gap-4">
         <a
           href={whatsappLink("Hi Ridhi, I'd like to connect with Soul Spark.")}
           className="flex items-center gap-2 rounded-full border border-gold px-4 py-2"
@@ -131,9 +208,15 @@ export function OneScreen() {
               15-Day Handwriting Improvement Program
             </h3>
             <p className="mt-3 flex items-baseline justify-center gap-3">
-              <span className="text-lg text-plum/50 line-through">₹6000</span>
-              <span className="font-display text-4xl text-gold">₹1999</span>
-              <span className="text-sm font-semibold">only</span>
+              {expired ? (
+                <span className="font-display text-4xl text-gold">₹6000</span>
+              ) : (
+                <>
+                  <span className="text-lg text-plum/50 line-through">₹6000</span>
+                  <span className="font-display text-4xl text-gold">₹1999</span>
+                  <span className="text-sm font-semibold">only</span>
+                </>
+              )}
             </p>
             <p className="mt-3 text-xs uppercase tracking-wide text-plum/60">
               {expired ? "Offer window ended" : "Reserve your seat in"}
