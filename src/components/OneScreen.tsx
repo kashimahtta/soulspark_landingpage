@@ -89,12 +89,14 @@ export function OneScreen() {
             </p>
           </div>
         </div>
-        <button
-          onClick={() => setOpen(true)}
+        <a
+          href="https://soul-spark-react.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="rounded-full bg-gold px-5 py-2 text-sm font-semibold text-plum"
         >
-          Join Now
-        </button>
+          Open Website
+        </a>
       </header>
 
       <main className="relative mx-auto grid min-h-0 w-full max-w-5xl flex-1 content-center gap-4 py-3 md:grid-cols-2 md:gap-8">
@@ -228,7 +230,7 @@ export function OneScreen() {
               rel="noopener noreferrer"
               className="mt-5 flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 font-semibold"
             >
-              <ExternalLink size={18} /> Join Now
+              <ExternalLink size={18} /> Open Website
             </a>
           </div>
         </div>
