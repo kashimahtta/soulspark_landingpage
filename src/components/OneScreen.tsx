@@ -13,12 +13,41 @@ import {
   INSTAGRAM_HANDLE,
   emailLink,
   instagramLink,
-  services,
   whatsappLink,
   whySoulSpark,
 } from "@/data/site";
 
 const COUNTDOWN_SECONDS = 15 * 60;
+
+const offers = [
+  {
+    title: "15-Day Handwriting Improvement Program",
+    original: 6000,
+    offer: 1999,
+  },
+  { title: "2-Day Polishing Class", original: 4500, offer: 999 },
+];
+
+function Price({
+  offer,
+  expired,
+}: {
+  offer: (typeof offers)[number];
+  expired: boolean;
+}) {
+  if (expired) {
+    return (
+      <span className="font-display text-2xl text-gold">₹{offer.original}</span>
+    );
+  }
+  return (
+    <>
+      <span className="text-plum/50 line-through">₹{offer.original}</span>
+      <span className="font-display text-2xl text-gold">₹{offer.offer}</span>
+      <span className="text-sm font-semibold">only</span>
+    </>
+  );
+}
 
 function useCountdown(active: boolean) {
   const [left, setLeft] = useState(COUNTDOWN_SECONDS);
@@ -116,30 +145,16 @@ export function OneScreen() {
         </section>
         <section>
           <h2 className="font-display text-2xl sm:text-3xl">What we offer?</h2>
-          <p className="mt-1 text-sm font-semibold text-gold">
-            15-Day Handwriting Improvement Program ·{" "}
-            {expired ? (
-              "₹6000"
-            ) : (
-              <>
-                <span className="font-normal text-plum/50 line-through">
-                  ₹6000
-                </span>{" "}
-                ₹1999 only
-              </>
-            )}
-          </p>
-          <ul className="mt-3 grid gap-2">
-            {services.map((s) => (
+          <ul className="mt-3 grid gap-3">
+            {offers.map((o) => (
               <li
-                key={s.title}
-                className="rounded-lg border border-gold/25 bg-cream/70 px-3 py-1.5 text-sm"
+                key={o.title}
+                className="rounded-lg border border-gold/25 bg-cream/70 px-4 py-3"
               >
-                <span className="font-semibold">{s.title}</span>
-                <span className="hidden text-plum/70 lg:inline">
-                  {" "}
-                  – {s.description}
-                </span>
+                <p className="font-semibold">{o.title}</p>
+                <p className="mt-1 flex items-baseline gap-3">
+                  <Price offer={o} expired={expired} />
+                </p>
               </li>
             ))}
           </ul>
@@ -206,20 +221,20 @@ export function OneScreen() {
               <X size={20} />
             </button>
             <p className="font-accent text-2xl text-gold">Limited seats left!</p>
-            <h3 className="mt-1 font-display text-2xl">
-              15-Day Handwriting Improvement Program
-            </h3>
-            <p className="mt-3 flex items-baseline justify-center gap-3">
-              {expired ? (
-                <span className="font-display text-4xl text-gold">₹6000</span>
-              ) : (
-                <>
-                  <span className="text-lg text-plum/50 line-through">₹6000</span>
-                  <span className="font-display text-4xl text-gold">₹1999</span>
-                  <span className="text-sm font-semibold">only</span>
-                </>
-              )}
-            </p>
+            <h3 className="mt-1 font-display text-2xl">Our Programs</h3>
+            <ul className="mt-3 grid gap-2 text-left">
+              {offers.map((o) => (
+                <li
+                  key={o.title}
+                  className="rounded-lg border border-gold/30 bg-white/60 px-3 py-2"
+                >
+                  <p className="text-sm font-semibold">{o.title}</p>
+                  <p className="flex items-baseline gap-3">
+                    <Price offer={o} expired={expired} />
+                  </p>
+                </li>
+              ))}
+            </ul>
             <p className="mt-3 text-xs uppercase tracking-wide text-plum/60">
               {expired ? "Offer window ended" : "Reserve your seat in"}
             </p>
