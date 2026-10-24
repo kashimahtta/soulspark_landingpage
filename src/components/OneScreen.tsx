@@ -19,13 +19,14 @@ import {
 
 const COUNTDOWN_SECONDS = 15 * 60;
 
-const offers = [
+const offers: { title: string; original?: number; offer: number }[] = [
   {
     title: "15-Day Handwriting Improvement Program",
     original: 6000,
-    offer: 1999,
+    offer: 2499,
   },
   { title: "2-Day Polishing Class", original: 4500, offer: 999 },
+  { title: "1-to-1 Call with Ridhi", offer: 49 },
 ];
 
 function Price({
@@ -37,12 +38,16 @@ function Price({
 }) {
   if (expired) {
     return (
-      <span className="font-display text-2xl text-gold">₹{offer.original}</span>
+      <span className="font-display text-2xl text-gold">
+        ₹{offer.original ?? offer.offer}
+      </span>
     );
   }
   return (
     <>
-      <span className="text-plum/50 line-through">₹{offer.original}</span>
+      {offer.original != null && (
+        <span className="text-plum/50 line-through">₹{offer.original}</span>
+      )}
       <span className="font-display text-2xl text-gold">₹{offer.offer}</span>
       <span className="text-sm font-semibold">only</span>
     </>
@@ -163,8 +168,16 @@ export function OneScreen() {
 
       <div className="relative mx-auto mb-3 hidden w-full max-w-5xl grid-cols-2 gap-4 md:grid [@media(max-height:700px)]:hidden">
         {[
-          { label: "Before", text: "mi hanwritng is mesy", cls: "-rotate-1 text-plum/60 tracking-tighter" },
-          { label: "After", text: "My handwriting is neat", cls: "rotate-0 text-plum" },
+          {
+            label: "Before",
+            text: "mi hanwritng is mesy",
+            cls: "-rotate-1 text-plum/60 tracking-tighter",
+          },
+          {
+            label: "After",
+            text: "My handwriting is neat",
+            cls: "rotate-0 text-plum",
+          },
         ].map((s) => (
           <div
             key={s.label}
@@ -220,7 +233,9 @@ export function OneScreen() {
             >
               <X size={20} />
             </button>
-            <p className="font-accent text-2xl text-gold">Limited seats left!</p>
+            <p className="font-accent text-2xl text-gold">
+              Limited seats left!
+            </p>
             <h3 className="mt-1 font-display text-2xl">Our Programs</h3>
             <ul className="mt-3 grid gap-2 text-left">
               {offers.map((o) => (
